@@ -55,6 +55,7 @@
         html {
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -131,7 +132,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            gap: 12px;
+            flex-wrap: nowrap;
         }
 
         .logo-box {
@@ -205,7 +207,7 @@
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex-shrink: 0;
         }
 
@@ -575,7 +577,7 @@
             max-width: 1320px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));
             gap: 28px;
         }
 
@@ -686,6 +688,7 @@
 
         .about-portrait {
             position: relative;
+            padding-bottom: 0;
         }
 
         .about-img-frame {
@@ -705,8 +708,8 @@
 
         .experience-seal {
             position: absolute;
-            bottom: -20px;
-            right: -20px;
+            bottom: 15px;
+            right: 15px;
             background: var(--bg-dark);
             color: var(--gold-light);
             padding: 22px 28px;
@@ -797,7 +800,7 @@
             max-width: 1320px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
             gap: 30px;
         }
 
@@ -1227,7 +1230,7 @@
             border-radius: 12px;
             color: var(--white);
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 16px; /* Minimum 16px prevents iOS Safari auto-zoom */
             transition: var(--transition);
             width: 100%;
         }
@@ -1568,7 +1571,19 @@
            ALL DEVICE COMPATIBILITY (RESPONSIVE STYLING)
            ========================================================= */
 
-        /* Tablets & iPads (<= 992px) */
+        /* --- Large Tablets & iPads (<=1024px) --- */
+        @media (max-width: 1024px) {
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 35px;
+            }
+        }
+
+        /* --- Tablets & iPads (<=992px) --- */
         @media (max-width: 992px) {
             .nav-container {
                 padding: 10px 18px;
@@ -1581,12 +1596,14 @@
                 width: 100%;
                 background: rgba(252, 250, 246, 0.98);
                 backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
                 flex-direction: column;
                 padding: 20px 20px 25px;
                 gap: 0;
                 border-bottom: 2px solid rgba(212, 175, 55, 0.35);
                 display: none;
                 box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -1637,8 +1654,8 @@
             }
 
             .experience-seal {
-                right: 15px;
-                bottom: 15px;
+                right: 12px;
+                bottom: 12px;
             }
 
             .why-grid {
@@ -1670,52 +1687,66 @@
             }
         }
 
-        /* Mobile Phones (<= 768px) */
+        /* --- Mobile Phones (<=768px) --- */
         @media (max-width: 768px) {
             .top-bar {
-                font-size: 0.68rem;
-                letter-spacing: 0.8px;
-                padding: 6px 12px;
+                font-size: 0.65rem;
+                letter-spacing: 0.5px;
+                padding: 6px 10px;
+                white-space: normal;
+                line-height: 1.4;
             }
 
             .nav-container {
-                padding: 8px 14px;
+                padding: 8px 12px;
+                gap: 8px;
             }
 
             .logo-img-wrap {
-                width: 40px;
-                height: 40px;
+                width: 38px;
+                height: 38px;
             }
 
             .brand-text h1 {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
 
             .brand-text span {
-                font-size: 0.58rem;
-                letter-spacing: 2px;
+                font-size: 0.56rem;
+                letter-spacing: 1.5px;
+            }
+
+            .lang-switch {
+                padding: 2px 4px;
+                gap: 1px;
             }
 
             .lang-btn {
-                padding: 3px 8px;
-                font-size: 0.7rem;
-            }
-
-            .btn-header-book {
-                padding: 6px 11px;
+                padding: 3px 7px;
                 font-size: 0.68rem;
             }
 
+            .btn-header-book {
+                padding: 6px 10px;
+                font-size: 0.65rem;
+                gap: 4px;
+            }
+
+            /* Hide "Book Now" text on small mobile, show icon only */
+            .btn-header-book span {
+                display: none;
+            }
+
             .hero {
-                padding: 35px 16px 50px;
+                padding: 30px 14px 45px;
             }
 
             .hero-content h2 {
-                font-size: 2.2rem;
+                font-size: clamp(1.8rem, 6vw, 2.3rem);
             }
 
             .hero-content p {
-                font-size: 0.96rem;
+                font-size: 0.94rem;
             }
 
             .hero-buttons {
@@ -1726,23 +1757,24 @@
             .hero-buttons .btn-gold,
             .hero-buttons .btn-outline {
                 width: 100%;
+                justify-content: center;
             }
 
             .hero-trust-points {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
+                gap: 8px;
             }
 
             .trust-box h4 {
-                font-size: 1.45rem;
+                font-size: 1.35rem;
             }
 
             .trust-box p {
-                font-size: 0.68rem;
+                font-size: 0.65rem;
             }
 
             .hero-main-card img {
-                height: 320px;
+                height: 300px;
             }
 
             .showcase,
@@ -1753,64 +1785,64 @@
             .pricing,
             .booking,
             .faq {
-                padding: 60px 16px;
+                padding: 55px 14px;
             }
 
             .section-header {
-                margin-bottom: 35px;
+                margin-bottom: 30px;
             }
 
             .section-header h3 {
-                font-size: 2rem;
+                font-size: clamp(1.7rem, 5vw, 2rem);
             }
 
             .section-header p {
-                font-size: 0.95rem;
+                font-size: 0.92rem;
             }
 
             /* 2 columns on mobile for makeup gallery */
             .makeup-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                gap: 10px;
             }
 
             .makeup-img-box {
-                height: 220px;
+                height: 200px;
             }
 
             .makeup-info {
-                padding: 12px 14px;
+                padding: 10px 12px;
             }
 
             .makeup-category {
-                font-size: 0.62rem;
+                font-size: 0.6rem;
             }
 
             .makeup-info h4 {
-                font-size: 1.05rem;
+                font-size: 1rem;
             }
 
             .makeup-info p {
-                font-size: 0.78rem;
+                font-size: 0.76rem;
             }
 
             .about-img-frame img {
-                height: 320px;
+                height: 300px;
             }
 
             .experience-seal {
-                padding: 14px 18px;
-                border-radius: 14px;
-                bottom: 12px;
-                right: 12px;
+                padding: 12px 16px;
+                border-radius: 12px;
+                bottom: 10px;
+                right: 10px;
             }
 
             .experience-seal span {
-                font-size: 1.8rem;
+                font-size: 1.7rem;
             }
 
             .experience-seal p {
-                font-size: 0.6rem;
+                font-size: 0.58rem;
             }
 
             .features-list {
@@ -1823,9 +1855,17 @@
                 gap: 16px;
             }
 
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-img-box {
+                height: 240px;
+            }
+
             .form-grid {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 14px;
             }
 
             .form-group.full {
@@ -1833,51 +1873,229 @@
             }
 
             .booking-box {
-                padding: 28px 18px;
+                padding: 24px 14px;
+            }
+
+            .booking-guarantees {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
             }
 
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 28px;
             }
 
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
+                gap: 8px;
+            }
+
+            footer {
+                padding: 55px 14px 28px;
             }
 
             .floating-whatsapp {
-                bottom: 18px;
-                right: 18px;
+                bottom: 16px;
+                right: 16px;
             }
 
             .floating-btn {
                 width: 50px;
                 height: 50px;
-                font-size: 1.6rem;
+                font-size: 1.55rem;
+            }
+
+            .faq-question {
+                font-size: 0.95rem;
+                padding: 16px 18px;
+            }
+
+            .faq-answer {
+                font-size: 0.88rem;
+            }
+
+            .brands-list {
+                gap: 16px;
+                font-size: 0.82rem;
+            }
+
+            .price-amount {
+                font-size: 2.2rem;
+            }
+
+            .review-card {
+                padding: 24px 18px;
+            }
+
+            /* Prevent iOS zoom on selects too */
+            select.form-control,
+            textarea.form-control {
+                font-size: 16px;
             }
         }
 
-        /* Extra Small Phones (<= 380px) */
+        /* --- Small Phones (<=480px) --- */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 7px 10px;
+                gap: 6px;
+            }
+
+            .logo-img-wrap {
+                width: 34px;
+                height: 34px;
+            }
+
+            .brand-text h1 {
+                font-size: 0.88rem;
+            }
+
+            .lang-switch {
+                padding: 2px 3px;
+            }
+
+            .lang-btn {
+                padding: 2px 5px;
+                font-size: 0.62rem;
+            }
+
+            .btn-header-book {
+                padding: 5px 8px;
+                font-size: 0.62rem;
+            }
+
+            .hero-trust-points {
+                gap: 6px;
+            }
+
+            .trust-box h4 {
+                font-size: 1.2rem;
+            }
+
+            .trust-box p {
+                font-size: 0.6rem;
+            }
+
+            .hero-main-card img {
+                height: 260px;
+            }
+
+            .makeup-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .makeup-img-box {
+                height: 180px;
+            }
+
+            .makeup-info h4 {
+                font-size: 0.9rem;
+            }
+
+            .section-header h3 {
+                font-size: clamp(1.55rem, 5vw, 1.8rem);
+            }
+
+            .pricing-grid {
+                max-width: 100%;
+            }
+
+            .price-amount {
+                font-size: 2rem;
+            }
+        }
+
+        /* --- Extra Small Phones (<=380px) --- */
         @media (max-width: 380px) {
             .brand-text span {
                 display: none;
             }
 
+            .lang-btn {
+                padding: 2px 4px;
+                font-size: 0.58rem;
+            }
+
             .hero-content h2 {
-                font-size: 1.85rem;
+                font-size: 1.75rem;
             }
 
             .hero-main-card img {
-                height: 270px;
+                height: 240px;
             }
 
+            /* Single column gallery on very small screens */
             .makeup-grid {
                 grid-template-columns: 1fr;
             }
 
             .makeup-img-box {
-                height: 280px;
+                height: 260px;
+            }
+
+            .trust-box h4 {
+                font-size: 1.1rem;
+            }
+
+            .trust-box p {
+                font-size: 0.58rem;
+            }
+
+            .hero {
+                padding: 24px 12px 38px;
+            }
+
+            .showcase,
+            .about,
+            .services,
+            .why-us,
+            .reviews,
+            .pricing,
+            .booking,
+            .faq {
+                padding: 45px 12px;
+            }
+
+            .booking-box {
+                padding: 20px 12px;
+            }
+
+            .section-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .btn-gold,
+            .btn-outline {
+                font-size: 0.82rem;
+                padding: 11px 20px;
+            }
+
+            footer {
+                padding: 45px 12px 24px;
+            }
+        }
+
+        /* --- Landscape phones (height <= 500px) --- */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                padding: 20px 16px 30px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .hero-main-card img {
+                height: 220px;
+            }
+
+            .hero-content h2 {
+                font-size: 1.6rem;
             }
         }
     </style>
